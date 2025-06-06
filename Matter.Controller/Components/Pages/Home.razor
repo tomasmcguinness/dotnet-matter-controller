@@ -1,0 +1,29 @@
+﻿@rendermode InteractiveServer
+@page "/"
+@using Blazor.Diagrams.Components
+@using Blazor.Diagrams.Components.Widgets
+
+<PageTitle>Fabric</PageTitle>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#" @onclick="NewTable">Add Node</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="wrapper">
+    <CascadingValue Value="Diagram">
+        <div class="diagram-container">
+            <DiagramCanvas>
+                <Widgets>
+                    <GridWidget Size="30" Mode="GridMode.Line" BackgroundColor="white" />
+                </Widgets>
+            </DiagramCanvas>
+        </div>
+        <DeviceNodeDetails></DeviceNodeDetails>
+    </CascadingValue>
+</div>
