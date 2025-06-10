@@ -7,3 +7,5 @@ You can add a single node (tested with matter.js example device node) via the co
 <img width="499" alt="image" src="https://github.com/user-attachments/assets/58e87075-80d1-4499-9183-0aa9df63e38a" />
 
 As I said, it's not intended for actual use yet.
+
+In terms of implementation, this is a Blazor Web App, built with .Net 9.0. 
