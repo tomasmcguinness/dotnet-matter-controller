@@ -1,5 +1,6 @@
 ﻿using Blazor.Diagrams.Core.Geometry;
 using Blazor.Diagrams.Core.Models;
+using Org.BouncyCastle.Utilities.Encoders;
 
 namespace Matter.Controller
 {
@@ -13,7 +14,7 @@ namespace Matter.Controller
             _node = node ?? throw new ArgumentNullException(nameof(node));
         }
 
-        public string NodeId => _node.NodeId.ToString();
+        public string NodeId => Hex.ToHexString(_node.NodeId.ToByteArrayUnsigned().Reverse().ToArray()).ToUpper();
 
         public bool IsConnected => _node.IsConnected;
     }

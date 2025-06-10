@@ -6,6 +6,7 @@ using Blazor.Diagrams.Core.Routers;
 using Blazor.Diagrams.Options;
 using Matter.Core;
 using Microsoft.AspNetCore.Components;
+using Org.BouncyCastle.Utilities.Encoders;
 
 namespace Matter.Controller.Components.Pages
 {
@@ -43,7 +44,7 @@ namespace Matter.Controller.Components.Pages
             {
                 var device = Diagram.Nodes.Add(new MatterNode(matterNode, position: new Point(50, 50))
                 {
-                    Title = matterNode.NodeId.ToString(),
+                    Title = Hex.ToHexString(matterNode.NodeId.ToByteArrayUnsigned()),
                 });
             }
 
