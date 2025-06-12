@@ -1,0 +1,22 @@
+﻿﻿.wrapper {
+    padding: 20px;
+}
+
+.endpoints-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.endpoint-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    background-color: #4472C4;
+    border: 2px solid #2F528F;
+    border-radius: 8px;
+}

@@ -1,0 +1,63 @@
+﻿@page "/nodes/{nodeId}"
+@using Matter.Core
+@using Org.BouncyCastle.Math
+@rendermode InteractiveServer
+@inject IMatterController _controller
+
+<PageTitle>Node</PageTitle>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="wrapper">
+    <h1>Node @nodeId</h1>
+
+    @if (node is not null)
+    {
+        <div class="endpoints-container">
+            @foreach (var endpoint in node.Endpoints)
+            {
+                <div class="endpoint-container">
+                    @string.Format("EP{0}", endpoint.EndpointId) [@GetFriendlyDeviceTypeName(endpoint.DeviceType)]
+                </div>
+            }
+        </div>
+    }
+
+    @code {
+
+        [Parameter]
+        public string nodeId { get; set; }
+
+        private Core.Node? node { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            var nodeIdBytes = nodeId.ToByteArray();
+
+            node = await _controller.GetNodeAsync(new BigInteger(nodeIdBytes, false));
+
+            await node.FetchDescriptionsAsync();
+        }
+
+        protected string GetFriendlyDeviceTypeName(ulong deviceType)
+        {
+            switch (deviceType)
+            {
+                case 0x16:
+                    return "Root Node";
+                case 0x100:
+                    return "On/Off Light";
+                default:
+                    return "Unknown";
+            }
+        }
+    }
+</div>

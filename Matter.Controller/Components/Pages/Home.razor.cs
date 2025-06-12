@@ -13,10 +13,12 @@ namespace Matter.Controller.Components.Pages
     public partial class Home : ComponentBase
     {
         private readonly IMatterController _controller;
+        private readonly NavigationManager _navigationManager;
 
-        public Home(IMatterController controller)
+        public Home(IMatterController controller, NavigationManager navigationManager)
         {
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
+            _navigationManager = navigationManager;
         }
 
         private BlazorDiagram Diagram { get; set; } = null!;
@@ -39,6 +41,8 @@ namespace Matter.Controller.Components.Pages
             Diagram = new BlazorDiagram(options);
 
             Diagram.RegisterComponent<MatterNode, DeviceNode>();
+
+            Diagram.PointerDoubleClick += Diagram_PointerDoubleClick;
 
             foreach (var matterNode in await _controller.GetNodesAsync())
             {
@@ -68,6 +72,17 @@ namespace Matter.Controller.Components.Pages
             //var targetAnchor = new SinglePortAnchor(leftPort);
             //var link = Diagram.Links.Add(new LinkModel(sourceAnchor, targetAnchor));
         }
+
+        private void Diagram_PointerDoubleClick(Blazor.Diagrams.Core.Models.Base.Model? arg1, Blazor.Diagrams.Core.Events.PointerEventArgs arg2)
+        {
+            var node = arg1 as MatterNode;
+
+            if (node is not null)
+            {
+                _navigationManager.NavigateTo($"/nodes/{node.NodeId}");
+            }
+        }
+
         private void NewTable(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
         }

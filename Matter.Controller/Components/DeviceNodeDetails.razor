@@ -1,15 +1,28 @@
-﻿<div class="sidebar">
+﻿@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
-    @if(_selectedNode is null)
+<div class="sidebar">
+
+    @if (_selectedNode is null)
     {
         <h3>Select a Node</h3>
     }
     else
     {
         <h3>@_selectedNode.NodeId</h3>
+        <hr />
+        <button @onclick="OpenNode">Open</button>
     }
 
     @code {
 
+        private void OpenNode()
+        {
+            if (_selectedNode is null)
+            {
+                return;
+            }
+
+            navigationManager.NavigateTo($"/nodes/{_selectedNode.NodeId}");
+        }
     }
 </div>

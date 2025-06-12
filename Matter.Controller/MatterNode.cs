@@ -16,6 +16,11 @@ namespace Matter.Controller
 
         public string NodeId => Hex.ToHexString(_node.NodeId.ToByteArrayUnsigned().Reverse().ToArray()).ToUpper();
 
+        public async Task InterrogateAsync()
+        {
+            await _node.FetchDescriptionsAsync();
+        }
+
         public bool IsConnected => _node.IsConnected;
     }
 }
